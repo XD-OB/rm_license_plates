@@ -4,16 +4,12 @@ import json
 import cv2
 
 addr = 'http://localhost:5000'
-test_url = addr + '/picture'
+url = addr + '/picture'
 
 # prepare headers for http request
-content_type = 'image/jpg'
+content_type = 'multipart/form-data'
 headers = {'content-type': content_type}
 
-img = cv2.imread('./images/car2.jpg')
-# encode image as jpeg
-_, img_encoded = cv2.imencode('.jpg', img)
+image = {'image': open('./images/souad.jpg', 'rb')}
 # send http request with image and receive response
-response = requests.post(test_url, data=img_encoded.tostring(), headers=headers)
-# decode response
-print(json.loads(response.text))
+response = requests.post(url, files=image, headers=headers)

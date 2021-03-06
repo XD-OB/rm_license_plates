@@ -38,8 +38,10 @@ def hide_image_plate(image_PIL):
     # get the four points coord
     rect = cv2.minAreaRect(plate_contour)
     box = numpy.int0(cv2.boxPoints(rect))
+    # Copy Image
+    final_image = image_CV.copy()
     # Fill the plate with WHITE color
-    final_image = cv2.drawContours(image_CV.copy(), [box], -1, (255, 255, 255), -1)
+    final_image = cv2.drawContours(final_image, [box], -1, (255, 255, 255), -1)
     # Put the BORDER
     final_image = cv2.drawContours(final_image, [box], 0, (207, 149, 1), 2)
     # Put the plate
@@ -48,8 +50,6 @@ def hide_image_plate(image_PIL):
     plate_CV_X = cv2.resize(plate_CV, (w,h))
     final_image[y:y+h, x:x+w] = plate_CV_X
 
-    # Convert color BGR -> RGB
-    #final_image = cv2.cvtColor(final_image, cv2.COLOR_BGR2RGB)
 
     ## Save the images
     cv2.imwrite('./images/image_hidden.jpg', final_image)
