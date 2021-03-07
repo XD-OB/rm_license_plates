@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, jsonify, render_template
+from flask import Flask, request, Response, jsonify, render_template, send_file
 from hide_plate import hide_image_plate
 import numpy as np
 from PIL import Image
@@ -18,6 +18,7 @@ def post_image():
     # process the image
     hide_image_plate(image)
     # build a response dict to send back to client
+    #return send_file('./images/image_hidden.jpg', mimetype="image/jpg")
     return jsonify({'msg': 'success', 'size': [image.width, image.height]})
 
 
