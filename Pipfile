@@ -6,10 +6,9 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-jupyter = "*"
-opencv-python = "*"
-pillow = "*"
-Flask = "*"
+opencv-python = "==4.5.1.48"
+Flask = "==1.1.2"
+Pillow = "==8.1.1"
 
 [requires]
 python_version = "3.7"

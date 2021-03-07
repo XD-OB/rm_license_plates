@@ -1,4 +1,4 @@
-from tools import rotate, get_rect_list, find_most_occurring_color
+from src.tools import rotate, get_rect_list, find_most_occurring_color
 from PIL import Image as Image_main
 from PIL.Image import Image
 import cv2

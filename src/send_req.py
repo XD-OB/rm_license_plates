@@ -10,6 +10,6 @@ url = addr + '/picture'
 content_type = 'multipart/form-data'
 headers = {'content-type': content_type}
 
-image = {'image': open('./images/car2.jpg', 'rb')}
+image = {'image': open('../images/car2.jpg', 'rb')}
 # send http request with image and receive response
 response = requests.post(url, files=image, headers=headers)

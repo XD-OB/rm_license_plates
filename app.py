@@ -1,7 +1,7 @@
 from flask import Flask, request, Response, render_template, send_file, make_response, redirect, url_for
-from replace_plate import replace_plate
-from hide_plate import hide_plate
-from tools import verify_file
+from src.replace_plate import replace_plate
+from src.hide_plate import hide_plate
+from src.tools import verify_file
 from PIL import Image
 from os import path
 import numpy as np

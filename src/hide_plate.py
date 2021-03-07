@@ -1,4 +1,4 @@
-from tools import rotate, get_rect_list
+from src.tools import rotate, get_rect_list
 from PIL import Image as Image_main
 from PIL.Image import Image
 import cv2
