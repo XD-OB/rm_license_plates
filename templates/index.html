@@ -1,57 +1,54 @@
 {% extends "layout.html" %}
 
-{% block title %}Hide my plate{% endblock %}
+{% block title %}Hide or Remove my plate{% endblock %}
 
 {% block body %}
 
-<div class="card" style="padding:5px; margin:50px">
-    <img src="{{url_for('static', filename='remove.jpg')}}" class="card-img-top" alt="picture">
-    <div class="card-body">
-        <h5 class="card-title">Hide plate of the car</h5>
-        <h6 class="card-subtitle mb-2 text-muted">OCR</h6>
-        <br/>
-        <!-- API Hide-->
-        <p class="card-text">API | Hide plate</p>
-        <form enctype="multipart/form-data" action="/api/hide" method="POST">
-            <div class="input-group mb-3" style="padding: 10px;">
-                <input type="file" class="form-control" id="inputGroupFile02" name="image">
-                <label class="input-group-text" for="inputGroupFile02">Upload</label>
-            </div>
+<div class="container mycontainer">
+    <div class="card remove-pic" style="padding:10px; margin:auto">
+        <img src="{{url_for('static', filename='remove.jpg')}}" class="card-img-top remove-pic" alt="remove picture">
+        <div class="card-body">
+            <h5 class="card-title">Hide or remove the plate in the image of a car</h5>
+            <h6 class="card-subtitle mb-2 text-muted">OCR</h6>
             <br/>
-            <center>
-                <button type="submit" class="btn btn-secondary" value="hide_api">Hide my plate!</button>
-            </center>
-        </form>
-        <br/>
-
-        <!-- API Replace-->
-        <p class="card-text">API | Replace plate</p>
-        <form enctype="multipart/form-data" action="/api/replace" method="POST">
-            <div class="input-group mb-3" style="padding: 10px;">
-                <input type="file" class="form-control" id="inputGroupFile02" name="image">
-                <label class="input-group-text" for="inputGroupFile02">Upload</label>
-            </div>
+            <!-- API Hide-->
+            <p class="card-text">API | Hide plate</p>
+            <form enctype="multipart/form-data" action="/api/hide" method="POST">
+                <div class="input-group mb-3" style="padding: 1em;">
+                    <input type="file" class="form-control" id="inputGroupFile02" name="image" accept="image/*">
+                </div>
+                <center>
+                    <button type="submit" class="btn btn-secondary" value="hide_api">Hide my plate!</button>
+                </center>
+            </form>
             <br/>
-            <center>
-                <button type="submit" class="btn btn-secondary" value="replace_api">Replace my plate!</button>
-            </center>
-        </form>
-        <br/>
 
-        <center><hr style="width:50%" /></center>
-
-        <!-- Show result -->
-        <p class="card-text">Upload image of the car</p>
-        <form enctype="multipart/form-data" action="/result" method="POST">
-            <div class="input-group mb-3" style="padding: 10px;">
-                <input type="file" class="form-control" id="inputGroupFile02" name="image">
-                <label class="input-group-text" for="inputGroupFile02">Upload</label>
-            </div>
+            <!-- API Replace-->
+            <p class="card-text">API | Replace plate</p>
+            <form enctype="multipart/form-data" action="/api/replace" method="POST">
+                <div class="input-group mb-3" style="padding: 1em;">
+                    <input type="file" class="form-control" id="inputGroupFile02" name="image" accept="image/*">
+                </div>
+                <center>
+                    <button type="submit" class="btn btn-secondary" value="replace_api">Replace my plate!</button>
+                </center>
+            </form>
             <br/>
-            <center>
-                <button type="submit" class="btn btn-dark" value="hide">Show result!</button>
-            </center>
-        </form>
+
+            <center><hr style="width:70%" /></center>
+            <br/>
+
+            <!-- Show result -->
+            <p class="card-text">Show the result</p>
+            <form enctype="multipart/form-data" action="/result" method="POST">
+                <div class="input-group mb-3" style="padding: 1em;">
+                    <input type="file" class="form-control" id="inputGroupFile02" name="image" accept="image/*">
+                </div>
+                <center>
+                    <button type="submit" class="btn btn-dark" value="hide">Show result!</button>
+                </center>
+            </form>
+        </div>
     </div>
 </div>
 

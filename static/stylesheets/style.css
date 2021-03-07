@@ -1,0 +1,22 @@
+body {
+    background-color: rgb(230, 230, 230);
+}
+
+.mycontainer {
+    padding: 2em;
+}
+
+.remove-pic {
+    max-width: 50em;
+}
+
+.mycard-style {
+    padding:5px;
+    margin:50px;
+}
+
+.car-item {
+    max-width: 22em;
+    padding: 0.5em;
+    margin: 0.2em;
+}

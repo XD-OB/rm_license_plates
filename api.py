@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, jsonify, render_template, send_file, make_response
+from flask import Flask, request, Response, jsonify, render_template, send_file, make_response, redirect
 from hide_plate import hide_plate
 from replace_plate import replace_plate
 import numpy as np
@@ -26,6 +26,12 @@ def index():
 @app.route("/api/hide", methods=["POST"])
 def post_api_hide():
     file = request.files['image']
+    # Check if the file input was empty
+    if (file.filename == ''):
+        return jsonify({
+            'error': "no image"
+        })
+    # Open image
     image = Image.open(file.stream)
     # process the image
     hide_plate(image)
@@ -36,6 +42,12 @@ def post_api_hide():
 @app.route("/api/replace", methods=["POST"])
 def post_api_replace():
     file = request.files['image']
+    # Check if the file input was empty
+    if (file.filename == ''):
+        return jsonify({
+            'error': "no image"
+        })
+    # Open image
     image = Image.open(file.stream)
     # process the image
     replace_plate(image)
@@ -46,6 +58,10 @@ def post_api_replace():
 @app.route("/result", methods=["POST"])
 def post_hide():
     file = request.files['image']
+    # Check if the file input was empty
+    if (file.filename == ''):
+        return redirect("/")
+    # Open image
     image = Image.open(file.stream)
     # process the image
     hide_plate(image)

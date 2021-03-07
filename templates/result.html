@@ -4,42 +4,42 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container mycontainer">
 
-    <div class="row d-flex p-2">
+    <div class="row">
 
         <!-- Original -->
-        <div class="card" class="col-6 d-inline-flex p-2" style="padding: 1em; margin: 1em; max-width: 22em;">
-            <img src="{{url_for('static', filename='results/original.jpg')}}" class="card-img-top" alt="old image" style="max-width: 28em;">
+        <div class="card car-item">
+            <img src="{{url_for('static', filename='results/original.jpg')}}" class="card-img-top" alt="old image" style="max-width: 25em;">
             <div class="card-body">
                 <center>
                     <h5 class="card-title">Original car image</h5>
                     <br/>
-                    <a href="{{url_for('static', filename='results/original.jpg')}}" class="btn btn-secondary btn-lg" download>Download</a>
+                    <a href="{{url_for('static', filename='results/original.jpg')}}" class="btn btn-secondary" download>Download</a>
                 </center>
             </div>
         </div>
 
         <!-- New | Hidden -->
-        <div class="card" class="col-6 d-inline-flex p-2" style="padding: 1em; margin: 1em; max-width: 22em;">
-            <img src="{{url_for('static', filename='results/result_hide.jpg')}}" class="card-img-top" alt="new image" style="max-width: 28em;">
+        <div class="card car-item" >
+            <img src="{{url_for('static', filename='results/result_hide.jpg')}}" class="card-img-top" alt="new image" style="max-width: 25em;">
             <div class="card-body">
                 <center>
                     <h5 class="card-title">Hidden plate image car</h5>
                     <br/>
-                    <a href="{{url_for('static', filename='results/result_hide.jpg')}}" class="btn btn-secondary btn-lg" download>Download</a>
+                    <a href="{{url_for('static', filename='results/result_hide.jpg')}}" class="btn btn-secondary" download>Download</a>
                 </center>
             </div>
         </div>
 
         <!-- New | Replace -->
-        <div class="card" class="col-6 d-inline-flex p-2" style="padding: 1em; margin: 1em; max-width: 22em;">
-            <img src="{{url_for('static', filename='results/result_replace.jpg')}}" class="card-img-top" alt="new image" style="max-width: 28em;">
+        <div class="card car-item" >
+            <img src="{{url_for('static', filename='results/result_replace.jpg')}}" class="card-img-top" alt="new image" style="max-width: 25em;">
             <div class="card-body">
                 <center>
                     <h5 class="card-title">Replace plate image car</h5>
                     <br/>
-                    <a href="{{url_for('static', filename='results/result_replace.jpg')}}" class="btn btn-secondary btn-lg" download>Download</a>
+                    <a href="{{url_for('static', filename='results/result_replace.jpg')}}" class="btn btn-secondary" download>Download</a>
                 </center>
             </div>
         </div>

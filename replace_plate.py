@@ -42,8 +42,6 @@ def replace_plate(image_PIL):
     final_image = image_CV.copy()
     # Fill the plate with most occurente color
     x,y,w,h = cv2.boundingRect(plate_contour)
-    print("w: ", w)
-    print("h: ", h)
     plate_image = image_CV[y:y+h, x:x+w]
     plate_image_blur = cv2.GaussianBlur(plate_image, (25, 25), 0)
     plate_mo_color = find_most_occurring_color(plate_image_blur)
