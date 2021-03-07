@@ -1,3 +1,5 @@
+from flask import jsonify
+from os import path
 import cv2
 
 
@@ -46,3 +48,22 @@ def find_most_occurring_color(cvImage) -> (int, int, int):
             maxCount = count
             maxBGR = BGR
     return maxBGR
+
+
+def verify_file(file, upload_exts):
+    '''
+    Verify the image
+    '''
+    file_name = file.filename
+    # Check if the file input was empty
+    if (file_name == ''):
+        return jsonify({
+            'error': "no image"
+        })
+    # Check extension of the file
+    file_ext = path.splitext(file_name)[1]
+    if file_ext not in upload_exts:
+        return jsonify({
+            'error': "wrong image extension"
+        })
+    return None
