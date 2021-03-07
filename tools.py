@@ -26,3 +26,23 @@ def get_rect_list(contours):
         if len(approximation) == 4:
             rectangle_contours.append(contour)
     return rectangle_contours
+
+
+def find_most_occurring_color(cvImage) -> (int, int, int):
+    width, height, channels = cvImage.shape
+    colorCount = {}
+    for y in range(0, height):
+        for x in range(0, width):
+            BGR = (int(cvImage[x, y, 0]), int(cvImage[x, y, 1]), int(cvImage[x, y, 2]))
+            if BGR in colorCount:
+                colorCount[BGR] += 1
+            else:
+                colorCount[BGR] = 1
+    maxCount = 0
+    maxBGR = (0, 0, 0)
+    for BGR in colorCount:
+        count = colorCount[BGR]
+        if count > maxCount:
+            maxCount = count
+            maxBGR = BGR
+    return maxBGR

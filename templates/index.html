@@ -10,8 +10,8 @@
         <h5 class="card-title">Hide plate of the car</h5>
         <h6 class="card-subtitle mb-2 text-muted">OCR</h6>
         <br/>
-        <!-- API -->
-        <p class="card-text">API</p>
+        <!-- API Hide-->
+        <p class="card-text">API | Hide plate</p>
         <form enctype="multipart/form-data" action="/api/hide" method="POST">
             <div class="input-group mb-3" style="padding: 10px;">
                 <input type="file" class="form-control" id="inputGroupFile02" name="image">
@@ -24,9 +24,25 @@
         </form>
         <br/>
 
+        <!-- API Replace-->
+        <p class="card-text">API | Replace plate</p>
+        <form enctype="multipart/form-data" action="/api/replace" method="POST">
+            <div class="input-group mb-3" style="padding: 10px;">
+                <input type="file" class="form-control" id="inputGroupFile02" name="image">
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            <br/>
+            <center>
+                <button type="submit" class="btn btn-secondary" value="replace_api">Replace my plate!</button>
+            </center>
+        </form>
+        <br/>
+
+        <center><hr style="width:50%" /></center>
+
         <!-- Show result -->
         <p class="card-text">Upload image of the car</p>
-        <form enctype="multipart/form-data" action="/hide" method="POST">
+        <form enctype="multipart/form-data" action="/result" method="POST">
             <div class="input-group mb-3" style="padding: 10px;">
                 <input type="file" class="form-control" id="inputGroupFile02" name="image">
                 <label class="input-group-text" for="inputGroupFile02">Upload</label>
