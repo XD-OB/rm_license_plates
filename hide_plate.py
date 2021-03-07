@@ -14,7 +14,7 @@ def hide_image_plate(image_PIL):
     image_CV = cv2.cvtColor(numpy.array(image_PIL), cv2.COLOR_RGB2BGR)
 
     ## Plate image
-    plate_path = './Kifal_plate.png'
+    plate_path = './static/Kifal_plate.png'
     plate_PIL = Image_main.open(plate_path)
     plate_CV = cv2.cvtColor(numpy.array(plate_PIL), cv2.COLOR_RGB2BGR)
 
@@ -52,4 +52,4 @@ def hide_image_plate(image_PIL):
 
 
     ## Save the images
-    cv2.imwrite('./images/image_hidden.jpg', final_image)
+    cv2.imwrite('./static/results/result.jpg', final_image)
