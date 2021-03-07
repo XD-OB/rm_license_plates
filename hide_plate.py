@@ -43,7 +43,7 @@ def hide_image_plate(image_PIL):
     # Fill the plate with WHITE color
     final_image = cv2.drawContours(final_image, [box], -1, (255, 255, 255), -1)
     # Put the BORDER
-    final_image = cv2.drawContours(final_image, [box], 0, (207, 149, 1), 2)
+    #final_image = cv2.drawContours(final_image, [box], 0, (207, 149, 1), 2)
     # Put the plate
     ## resize the plate regarding the space of the contour
     x,y,w,h = cv2.boundingRect(plate_contour)
@@ -51,5 +51,8 @@ def hide_image_plate(image_PIL):
     final_image[y:y+h, x:x+w] = plate_CV_X
 
 
-    ## Save the images
+    ## Save the result image
+    cv2.imwrite('./static/results/original.jpg', image_CV.copy())
+
+    ## Save the result image
     cv2.imwrite('./static/results/result.jpg', final_image)

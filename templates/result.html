@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}Result!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="row d-flex p-2">
+
+        <!-- Original -->
+        <div class="card" class="col-6 d-inline-flex p-2" style="padding: 1em; max-width: 25em; margin: 1em">
+            <img src="{{url_for('static', filename='results/original.jpg')}}" class="card-img-top" alt="old image">
+            <div class="card-body">
+                <center>
+                    <h5 class="card-title">Original car image</h5>
+                    <br/>
+                    <a href="{{url_for('static', filename='results/original.jpg')}}" class="btn btn-secondary btn-lg" download>Download</a>
+                </center>
+            </div>
+        </div>
+
+        <!-- New -->
+        <div class="card" class="col-6 d-inline-flex p-2" style="padding: 1em; max-width: 25em; ; margin: 1em">
+            <img src="{{url_for('static', filename='results/result.jpg')}}" class="card-img-top" alt="new image">
+            <div class="card-body">
+                <center>
+                    <h5 class="card-title">Hidden plate image car</h5>
+                    <br/>
+                    <a href="{{url_for('static', filename='results/result.jpg')}}" class="btn btn-secondary btn-lg" download>Download</a>
+                </center>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
