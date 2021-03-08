@@ -1,59 +1,64 @@
-from src.tools import rotate, get_rect_list, find_most_occurring_color
-from PIL import Image as Image_main
-from PIL.Image import Image
+from src.find_plate import find_plate
+import numpy as np
+import imutils
 import cv2
-import numpy
-import os
     
 
 def replace_plate(image_PIL):
     '''
-    Function that hide the car plate
+    Function that detect and replace the car old plate with new plate
     '''
-    ## Car image
-    image_CV = cv2.cvtColor(numpy.array(image_PIL), cv2.COLOR_RGB2BGR)
+    ## Read and grayscale the image
+    img = cv2.cvtColor(np.array(image_PIL), cv2.COLOR_RGB2BGR)
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    ## Plate image
-    plate_path = './static/plate.png'
-    plate_PIL = Image_main.open(plate_path)
-    plate_CV = cv2.cvtColor(numpy.array(plate_PIL), cv2.COLOR_RGB2BGR)
+    ## Noise reduction
+    bfilter = cv2.bilateralFilter(img_gray, 11, 17, 17)
 
+    ## Find edges for localization
+    edged = cv2.Canny(bfilter, 30, 200)
 
-    ### Preprocessing the image
-    gray = cv2.cvtColor(image_CV, cv2.COLOR_BGR2GRAY)
-    bilateral = cv2.bilateralFilter(gray, 11, 17, 17)
-    blur = cv2.GaussianBlur(bilateral, (5, 5), 0)
+    ## Find plate contour
+    locations = find_plate(edged)
+    if (len(locations) == 0):
+        return False
+    plate = locations[0]
 
-    ## Canny Edge Detection
-    edged = cv2.Canny(blur, 170, 200)
+    ## Show car plate
+    mask = np.zeros(img_gray.shape, np.uint8)
+    new_image = cv2.drawContours(mask, [plate], 0,255, -1)
+    new_image = cv2.bitwise_and(img, img, mask=mask)
 
-    ## Find Contours
-    contours, hierarchy = cv2.findContours(edged, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-    contours = sorted(contours, key = cv2.contourArea, reverse = True)
-    # get list of rectangles contours
-    rectangle_contours = get_rect_list(contours)
+    # Trait new plate
 
-    ## Hide plate
-    plate_contour = rectangle_contours[0]
-    # get the four points coord
-    rect = cv2.minAreaRect(plate_contour)
-    box = numpy.int0(cv2.boxPoints(rect))
-    # Copy Image
-    final_image = image_CV.copy()
-    # Fill the plate with most occurente color
-    x,y,w,h = cv2.boundingRect(plate_contour)
-    plate_image = image_CV[y:y+h, x:x+w]
-    plate_image_blur = cv2.GaussianBlur(plate_image, (25, 25), 0)
-    plate_mo_color = find_most_occurring_color(plate_image_blur)
-    final_image = cv2.drawContours(final_image, [box], -1, plate_mo_color, -1)
-    # Put the plate
-    ## resize the plate regarding the space of the contour
-    plate_CV_X = cv2.resize(plate_CV, (w,h))
-    final_image[y:y+h, x:x+w] = plate_CV_X
+    ## plate
+    img_plate = cv2.imread('./static/plate.png')
 
+    pts_src = np.array([[img_plate.shape[1],0], [0,0],  [0, img_plate.shape[0]], [img_plate.shape[1], img_plate.shape[0]]])
 
-    ## Save the result image
-    cv2.imwrite('./static/results/original.jpg', image_CV.copy())
+    ## Calculate Homography
+    h, status = cv2.findHomography(pts_src, plate)
+
+    ## Wrap the source
+    new_plate = cv2.warpPerspective(img_plate, h, (img.shape[1],img.shape[0]))
+
+    # Put the new plate
+
+    ## Now create a mask of logo and create its inverse mask also
+    new_plate_gray = cv2.cvtColor(new_plate, cv2.COLOR_BGR2GRAY)
+    ret, mask = cv2.threshold(new_plate_gray, 10, 255, cv2.THRESH_BINARY)
+    mask_inv = cv2.bitwise_not(mask)
+
+    ## Now black-out the area of the old plate
+    img_bo = cv2.bitwise_and(img ,img, mask=mask_inv)
+
+    ## Merge the images
+    final_image = cv2.bitwise_or(img_bo, new_plate)
+
+    ## Save the old image
+    cv2.imwrite('./static/results/original.jpg', img.copy())
 
     ## Save the result image
     cv2.imwrite('./static/results/result_replace.jpg', final_image)
+
+    return True

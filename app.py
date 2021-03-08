@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template, send_file, make_response, redirect, url_for
+from flask import Flask, request, Response, render_template, send_file, make_response, redirect, url_for, jsonify
 from src.replace_plate import replace_plate
 from src.hide_plate import hide_plate
 from src.tools import verify_file
@@ -41,7 +41,10 @@ def post_api_hide():
     # Open image
     image = Image.open(file.stream)
     # process the image
-    hide_plate(image)
+    if not hide_plate(image):
+        return jsonify({
+            'error': "no plate detected!"
+        })
     # build a response dict to send back to client
     return send_file('static/results/result_hide.jpg', mimetype="image/jpg"), 200
 
@@ -56,7 +59,10 @@ def post_api_replace():
     # Open image
     image = Image.open(file.stream)
     # process the image
-    replace_plate(image)
+    if not replace_plate(image):
+        return jsonify({
+            'error': "no plate detected!"
+        })
     # build a response dict to send back to client
     return send_file('static/results/result_replace.jpg', mimetype="image/jpg"), 200
 
@@ -77,8 +83,10 @@ def post_hide():
     # Open image
     image = Image.open(file.stream)
     # process the image
-    hide_plate(image)
-    replace_plate(image)
+    if not hide_plate(image):
+        return redirect(url_for('index'))
+    if not replace_plate(image):
+        return redirect(url_for('index'))
     # build a response dict to send back to client
     return render_template('result.html')
 
