@@ -31,6 +31,12 @@ def index():
     return render_template('index.html', title="home", username=None)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # render 404 template
+    return render_template('404.html'), 404
+
+
 @app.route("/api/hide", methods=["POST"])
 def post_api_hide():
     file = request.files['image']

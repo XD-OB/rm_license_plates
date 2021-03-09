@@ -13,10 +13,10 @@ def replace_plate(image_PIL):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     ## Noise reduction
-    bfilter = cv2.bilateralFilter(img_gray, 11, 17, 17)
+    #bfilter = cv2.bilateralFilter(img_gray, 11, 17, 17)
 
     ## Find edges for localization
-    edged = cv2.Canny(bfilter, 30, 200)
+    edged = cv2.Canny(img_gray, 170, 200)
 
     ## Find plate contour
     locations = find_plate(edged)
